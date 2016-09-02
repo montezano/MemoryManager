@@ -9,12 +9,13 @@ public:
     MemmoryAllocator();
     ~MemmoryAllocator();
     
-    void Allocate(std::size_t size);
+    virtual void Allocator(std::size_t sizeSize);
+    virtual void* alloc(std::size_t sizeBytes);
 
-    private:
+    protected:
 
     void* mStackBottom;
-    void*  mStackTop;
+    void* mStackTop;
     std::size_t mStackSize;
 };
 
