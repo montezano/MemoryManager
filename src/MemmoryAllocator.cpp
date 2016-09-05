@@ -17,3 +17,7 @@ void MemmoryAllocator::Allocator(std::size_t size){
     mStackSize = size;
     mStackTop = (void*)((char*)mStackBottom + size);
 }
+
+void* MemmoryAllocator::alloc(std::size_t size) {
+    return nullptr;
+}

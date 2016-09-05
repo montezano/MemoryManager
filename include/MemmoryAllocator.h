@@ -10,7 +10,7 @@ public:
     ~MemmoryAllocator();
     
     virtual void Allocator(std::size_t sizeSize);
-    virtual void* alloc(std::size_t sizeBytes);
+    virtual void* alloc(std::size_t sizeBytes) = 0;
 
     protected:
 
