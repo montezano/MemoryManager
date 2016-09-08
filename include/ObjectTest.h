@@ -9,11 +9,16 @@
 
 
 class ObjectTest {
+public:
 	ObjectTest();
 	~ObjectTest();
 
-	void* operator new(std::size_t size_bytes, MemmoryAllocator& allocator);
-	void operator delete(void* ptr);
+	int getNumber1();
+
+	// void* operator new(std::size_t size_bytes, MemmoryAllocator& allocator);
+	// void operator delete(void* ptr);
+private:
+	int number1;
 };
 
 #endif //__OBJECTTEST_H__

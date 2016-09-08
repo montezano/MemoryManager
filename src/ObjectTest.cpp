@@ -1,17 +1,21 @@
 #include "ObjectTest.h"
 
 ObjectTest::ObjectTest(){
-	
+	number1 = 12;
 }
 
 ObjectTest::~ObjectTest(){
 	
 }
 
-void* ObjectTest::operator new(std::size_t size_bytes, MemmoryAllocator& allocator) {
-
+int ObjectTest::getNumber1() {
+	return number1;
 }
 
-void ObjectTest::operator delete(void* ptr){
+// void* ObjectTest::operator new(std::size_t size_bytes, MemmoryAllocator& allocator) {
+// 	allocator.alloc
+// }
 
-}
+// void ObjectTest::operator delete(void* ptr){
+
+// }

@@ -1,5 +1,6 @@
 #include "gtest.h"
 #include "StackAllocator.h"
+#include "ObjectTest.h"
 
 
 class StackAllocatorTest : public ::testing::Test {
@@ -21,46 +22,28 @@ TEST_F(StackAllocatorTest, ValidMemorySize) {
 
 TEST_F(StackAllocatorTest, InvalidMemmorySize) {
     ASSERT_THROW(memAlloc.Allocator(1000000000000ul), std::bad_alloc);
-
-    // try {
-    // } catch (std::bad_alloc& e) {
-    //     EXPECT_EQ(e.what(),std::string("Out of range"));
-    // } catch (...) {
-    //     FAIL();
-    // }
 }
 
-TEST_F(StackAllocatorTest, alloc_data_memmory) {
+TEST_F(StackAllocatorTest, alloc_successufully) {
     memAlloc.Allocator(sizeof(int));
-    EXPECT_NO_THROW((int*)memAlloc.alloc(sizeof(int)));
+    EXPECT_NO_THROW(memAlloc.alloc(sizeof(int)));
 }
 
 TEST_F(StackAllocatorTest, alloc_more_than_avaiable) {
     memAlloc.Allocator(sizeof(int));
-    ASSERT_THROW((int*)memAlloc.alloc(sizeof(long int)), std::bad_alloc);
+    ASSERT_THROW(memAlloc.alloc(sizeof(long int)), std::bad_alloc);
 }
 
-// TEST_F(StackAllocatorTest, access_allocated_data) {
-//     try {
-//         memAlloc.Allocator(20000ul);
-//         int* data = 
-//     }
-    
-// }
+TEST_F(StackAllocatorTest, alloc_object) {
+    memAlloc.Allocator(200000ul);
+    ASSERT_NO_THROW(memAlloc.alloc(sizeof(ObjectTest)));
+}
 
-// TEST_F(StackAllocatorTest, )
+TEST_F(StackAllocatorTest, access_allocated_object) {
+    memAlloc.Allocator(200000ul);
+    void* ptr = memAlloc.alloc(sizeof(ObjectTest));
+    ObjectTest* obj = new (ptr) ObjectTest();
 
-
-// TEST_F(StackAllocatorTest, InvalidMemmorySize) {
-//     try {
-//         memAlloc.Allocator(100000000ul);
-//     } catch (std::bad_alloc& e) {
-//         EXPECT_EQ(e.what(),std::string("Out of range"));
-//     } catch (...) {
-//         FAIL();
-//     }
-// }
-
-// TEST_F(StackAllocatorTest, Access_alocated_data) {
-
-// }
+    ASSERT_EQ(obj->getNumber1(), 12);
+    ASSERT_NE(obj->getNumber1(), 11);
+}

@@ -13,5 +13,8 @@ void* StackAllocator::alloc(std::size_t size_bytes) {
         throw std::bad_alloc();
     }
 
+    mMarker = mStackTop;
     mStackTop = (void*)((char*)mStackTop + size_bytes);
+    mStackSize = mStackSize + size_bytes;
+    return mMarker;
 }

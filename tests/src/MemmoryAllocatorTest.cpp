@@ -1,26 +1,26 @@
-#include "gtest.h"
-#include <MemmoryAllocator.h> 
+// #include "gtest.h"
+// #include <MemmoryAllocator.h> 
 
 
-class MemmoryAllocatorTest : public ::testing::Test {
+// class MemmoryAllocatorTest : public ::testing::Test {
 
-// protected:
-// 	virtual void SetUp() {
-//         memAlloc = MemmoryAllocator();
-// 	}
+// // protected:
+// // 	virtual void SetUp() {
+// //         memAlloc = MemmoryAllocator();
+// // 	}
 
-//     virtual void TearDown() {
-//         // delete(memAlloc);
-//     }
-//     MemmoryAllocator memAlloc;
-};
-
-
+// //     virtual void TearDown() {
+// //         // delete(memAlloc);
+// //     }
+// //     MemmoryAllocator memAlloc;
+// };
 
 
 
-TEST_F(MemmoryAllocatorTest, Access_alocated_data) {
 
-}
 
-int* data;
+// TEST_F(MemmoryAllocatorTest, Access_alocated_data) {
+
+// }
+
+// int* data;

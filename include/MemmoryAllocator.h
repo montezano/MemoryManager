@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <exception>
 #include <iostream>
+#include <assert.h>
 
 
 class MemmoryAllocator{
@@ -19,10 +20,15 @@ public:
     virtual void Allocator(std::size_t size_bytes);
     virtual void* alloc(std::size_t size_bytes) = 0;
 
+    void* getStackBase();
+    void* getStackTop();
+    std::size_t getStackSize();
+
     protected:
 
     void* mStackBottom;
     void* mStackTop;
+    void* mMarker;
     std::size_t mStackSize;
 };
 
