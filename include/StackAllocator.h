@@ -8,7 +8,7 @@ class StackAllocator : public MemmoryAllocator {
     StackAllocator();
     ~StackAllocator();
 
-    void* alloc(std::size_t sizeBytes);
+    void* alloc(std::size_t size_bytes);
 
 };
 

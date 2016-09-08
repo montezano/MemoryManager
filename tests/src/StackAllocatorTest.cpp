@@ -40,13 +40,13 @@ TEST_F(StackAllocatorTest, alloc_more_than_avaiable) {
     ASSERT_THROW((int*)memAlloc.alloc(sizeof(long int)), std::bad_alloc);
 }
 
-TEST_F(StackAllocatorTest, access_allocated_data) {
-    try {
-        memAlloc.Allocator(20000ul);
-        int* data = 
-    }
+// TEST_F(StackAllocatorTest, access_allocated_data) {
+//     try {
+//         memAlloc.Allocator(20000ul);
+//         int* data = 
+//     }
     
-}
+// }
 
 // TEST_F(StackAllocatorTest, )
 
