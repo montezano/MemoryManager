@@ -18,18 +18,28 @@ public:
     // void operator delete(void* ptr);
     
     virtual void Allocator(std::size_t size_bytes);
+    template<class T> void Allocator(std::size_t size_bytes) {
+        mStackBottom = (void*)(::operator new(size_bytes));
+        if(mStackBottom == nullptr){
+            throw std::bad_alloc();
+        }
+        mAllocMem = size_bytes;
+        mStackTop = (void*)(reinterpret_cast<T*>(mStackBottom) + size_bytes);
+    }
+    
     virtual void* alloc(std::size_t size_bytes) = 0;
 
     void* getStackBase();
     void* getStackTop();
     std::size_t getStackSize();
 
-    protected:
+protected:
 
+    void allignBlocks();
     void* mStackBottom;
     void* mStackTop;
     void* mMarker;
-    std::size_t mStackSize;
+    std::size_t mAllocMem;
 };
 
 #endif

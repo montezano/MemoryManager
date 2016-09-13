@@ -20,16 +20,34 @@ void* MemmoryAllocator::getStackBase() {return mStackBottom;}
 
 void* MemmoryAllocator::getStackTop() {return mStackTop;}
 
-std::size_t MemmoryAllocator::getStackSize() {return mStackSize;}
+std::size_t MemmoryAllocator::getStackSize() {return mAllocMem;}
 
 void MemmoryAllocator::Allocator(std::size_t size_bytes){
-	mStackBottom = reinterpret_cast<void*>(::operator new(size_bytes));
+	mAllocMem = size_bytes;
+	allignBlocks();
+
+	mStackBottom = (void*)(::operator new(size_bytes));
     if(mStackBottom == nullptr){
         throw std::bad_alloc();
     }
-    mStackSize = size_bytes;
-    mStackTop = reinterpret_cast<void*>(static_cast<char*>(mStackBottom) + size_bytes);
+    
+    mStackTop = (void*)(reinterpret_cast<intptr_t>(mStackBottom) + size_bytes);
 }
+
+void MemmoryAllocator::allignBlocks(){
+	if(mAllocMem % sizeof(intptr_t) != 0) {
+		mAllocMem = (mAllocMem / sizeof(intptr_t)) + sizeof(intptr_t);
+	}
+}
+
+// template<class T> void MemmoryAllocator::Allocator(std::size_t size_bytes) {
+// 	mStackBottom = (void*)(::operator new(size_bytes));
+//     if(mStackBottom == nullptr){
+//         throw std::bad_alloc();
+//     }
+//     mAllocMem = size_bytes;
+//     mStackTop = (void*)(reinterpret_cast<T*>(mStackBottom) + size_bytes);
+// }
 
 // void* MemmoryAllocator::alloc(std::size_t size) {
 //     return nullptr;
