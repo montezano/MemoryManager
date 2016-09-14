@@ -79,7 +79,7 @@ TEST_F(StackAllocatorTest, access_array_alloc_object) {
 TEST_F(StackAllocatorTest, access_array_alloc_object2) {
 
 
-    memAlloc.Allocator<long int>(sizeof(long int[50]));
+    // memAlloc.Allocator<long int>(sizeof(long int[50]));
     // void* ptr = memAlloc.alloc(50ul);
     // long int* array = new (ptr) long int[50]();
     // std::cout << "int size: " << sizeof(long int[50]) << std::endl;

@@ -1,12 +1,8 @@
 #include "MemmoryAllocator.h"
 
-MemmoryAllocator::MemmoryAllocator(){
+MemmoryAllocator::MemmoryAllocator(){}
 
-}
-
-MemmoryAllocator::~MemmoryAllocator(){
-
-}
+MemmoryAllocator::~MemmoryAllocator(){}
 
 // void* MemmoryAllocator::operator new(std::size_t size_bytes){
 
@@ -24,20 +20,14 @@ std::size_t MemmoryAllocator::getStackSize() {return mAllocMem;}
 
 void MemmoryAllocator::Allocator(std::size_t size_bytes){
 	mAllocMem = size_bytes;
-	allignBlocks();
+	Aligner::allignBlocks(&mAllocMem);
 
 	mStackBottom = (void*)(::operator new(size_bytes));
     if(mStackBottom == nullptr){
         throw std::bad_alloc();
     }
     
-    mStackTop = (void*)(reinterpret_cast<intptr_t>(mStackBottom) + size_bytes);
-}
-
-void MemmoryAllocator::allignBlocks(){
-	if(mAllocMem % sizeof(intptr_t) != 0) {
-		mAllocMem = (mAllocMem / sizeof(intptr_t)) + sizeof(intptr_t);
-	}
+    mStackTop = PointerMath::addBytes(mStackBottom, size_bytes);
 }
 
 // template<class T> void MemmoryAllocator::Allocator(std::size_t size_bytes) {
