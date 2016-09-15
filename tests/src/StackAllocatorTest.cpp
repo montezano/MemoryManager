@@ -60,7 +60,7 @@ TEST_F(StackAllocatorTest, access_array_alloc_object) {
     }
 
     for(int i = 0; i < 50; i++){
-        std::cout << i << std::endl;
+        // std::cout << i << std::endl;
         ASSERT_EQ(array[i], i);
     }
 }
