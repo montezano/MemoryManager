@@ -30,8 +30,6 @@ TEST_F(StackAllocatorTest, alloc_successufully) {
 }
 
 TEST_F(StackAllocatorTest, alloc_more_than_avaiable) {
-     std::cout << "int size: " << sizeof(int[10]) << std::endl;
-     std::cout << "int size: " << sizeof(long int) << std::endl;
     memAlloc.Allocator(sizeof(int));
     ASSERT_THROW(memAlloc.alloc(sizeof(int[10])), std::bad_alloc);
 }
@@ -45,7 +43,6 @@ TEST_F(StackAllocatorTest, access_single_alloc_object) {
     memAlloc.Allocator(sizeof(ObjectTest));
     void* ptr = memAlloc.alloc(sizeof(ObjectTest));
     ObjectTest* obj = new (ptr) ObjectTest();
-    std::cout << memAlloc.getStackBase() << " " << memAlloc.getStackTop() << std::endl;
 
     ASSERT_EQ(obj->getNumber1(), 12);
 }
@@ -54,29 +51,18 @@ TEST_F(StackAllocatorTest, access_array_alloc_object) {
 
 
     memAlloc.Allocator(sizeof(int[50]));
-        std::cout << memAlloc.getStackBase() << " " << memAlloc.getStackTop() << std::endl; 
-        std::cout << "int[50] size: " << sizeof(int[50]) << std::endl;
+
     void* ptr = memAlloc.alloc(sizeof(int[50]));
     int* array = new (ptr) int[50]();
-        std::cout << "int size: " << sizeof(int) << std::endl;
 
-    
-      std::cout << "size of memAlloc: " << sizeof(memAlloc) << std::endl;
     for(int i = 0; i < 50; i++){
-        std::cout << i << std::endl;
         array[i] = i;
     }
-        // std::cout << "END OF THE INITIALIZATION" << std::endl;
 
     for(int i = 0; i < 50; i++){
         std::cout << i << std::endl;
         ASSERT_EQ(array[i], i);
     }
-        std::cout << "END OF THE INITIALIZATION" << std::endl;
-        std::cout << "END OF THE INITIALIZATION" << std::endl;
-
-
-    
 }
 
 TEST_F(StackAllocatorTest, access_array_alloc_object2) {
