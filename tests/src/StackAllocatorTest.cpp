@@ -30,8 +30,10 @@ TEST_F(StackAllocatorTest, alloc_successufully) {
 }
 
 TEST_F(StackAllocatorTest, alloc_more_than_avaiable) {
+     std::cout << "int size: " << sizeof(int[10]) << std::endl;
+     std::cout << "int size: " << sizeof(long int) << std::endl;
     memAlloc.Allocator(sizeof(int));
-    ASSERT_THROW(memAlloc.alloc(sizeof(long int)), std::bad_alloc);
+    ASSERT_THROW(memAlloc.alloc(sizeof(int[10])), std::bad_alloc);
 }
 
 TEST_F(StackAllocatorTest, alloc_object) {
