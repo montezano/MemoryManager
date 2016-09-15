@@ -20,7 +20,7 @@ std::size_t MemmoryAllocator::getStackSize() {return mAllocMem;}
 
 void MemmoryAllocator::Allocator(std::size_t size_bytes){
 	mAllocMem = size_bytes;
-	Aligner::allignBlocks(&mAllocMem);
+	Aligner::alignBlocks(&mAllocMem);
 
 	mStackBottom = (void*)(::operator new(size_bytes));
     if(mStackBottom == nullptr){

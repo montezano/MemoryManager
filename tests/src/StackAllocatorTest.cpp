@@ -54,12 +54,14 @@ TEST_F(StackAllocatorTest, access_array_alloc_object) {
 
 
     memAlloc.Allocator(sizeof(int[50]));
+        std::cout << memAlloc.getStackBase() << " " << memAlloc.getStackTop() << std::endl; 
+        std::cout << "int[50] size: " << sizeof(int[50]) << std::endl;
     void* ptr = memAlloc.alloc(sizeof(int[50]));
     int* array = new (ptr) int[50]();
-    std::cout << "int size: " << sizeof(int[50]) << std::endl;
+        std::cout << "int size: " << sizeof(int) << std::endl;
 
-    std::cout << memAlloc.getStackBase() << " " << memAlloc.getStackTop() << std::endl;
-    std::cout << "size of memAlloc: " << sizeof(memAlloc) << std::endl;
+    
+      std::cout << "size of memAlloc: " << sizeof(memAlloc) << std::endl;
     for(int i = 0; i < 50; i++){
         std::cout << i << std::endl;
         array[i] = i;
@@ -70,8 +72,7 @@ TEST_F(StackAllocatorTest, access_array_alloc_object) {
         std::cout << i << std::endl;
         ASSERT_EQ(array[i], i);
     }
-    std::cout << "END OF THE INITIALIZATION" << std::endl;
-    delete(array);
+        std::cout << "END OF THE INITIALIZATION" << std::endl;
         std::cout << "END OF THE INITIALIZATION" << std::endl;
 
 

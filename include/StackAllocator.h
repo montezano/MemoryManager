@@ -4,7 +4,7 @@
 #include "MemmoryAllocator.h"
 
 class StackAllocator : public MemmoryAllocator {
-    public:
+public:
     StackAllocator();
     ~StackAllocator();
 

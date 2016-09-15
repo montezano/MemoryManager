@@ -4,6 +4,8 @@
 #include <cstddef>
 #include <cstdint>
 
+#include "Aligner.h"
+
 
 class PointerMath{
 public:
