@@ -10,6 +10,8 @@ public:
 
     void* alloc(std::size_t size_bytes);
 
+    template<typename T> T* alloc(T myType);
+
 };
 
 #endif
