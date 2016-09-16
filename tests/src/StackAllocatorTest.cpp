@@ -47,6 +47,20 @@ TEST_F(StackAllocatorTest, access_single_alloc_object) {
     ASSERT_EQ(obj->getNumber1(), 12);
 }
 
+TEST_F(StackAllocatorTest, alloc_array_avaiable_mem) {
+
+    memAlloc.Allocator(sizeof(int[50]));
+
+    ASSERT_NO_THROW(memAlloc.alloc(sizeof(int[50])));
+}
+
+TEST_F(StackAllocatorTest, alloc_array_unavaiable_mem) {
+
+    memAlloc.Allocator(sizeof(int[50]));
+
+    ASSERT_THROW(memAlloc.alloc(sizeof(int[51])), std::bad_alloc);
+}
+
 TEST_F(StackAllocatorTest, access_array_alloc_object) {
 
 

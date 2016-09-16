@@ -27,6 +27,7 @@ void MemmoryAllocator::Allocator(std::size_t size_bytes){
         throw std::bad_alloc();
     }
     
+    mMarker = mStackBottom;
     mStackTop = PointerMath::addBytes(mStackBottom, size_bytes);
 }
 
