@@ -4,15 +4,24 @@
 
 class AlignmentTest : public ::testing::Test {
 
-// protected:
-// 	virtual void SetUp() {
-		
-// 	}
-
 };
 
-TEST(AlignmentTest, aligned_blocks_test) {
-
+TEST(AlignmentTest, aligned_blocks) {
+	std::size_t alignment = sizeof(intptr_t);
+	Aligner::alignBlocks(&alignment);
     
-    EXPECT_TRUE(true);
+    EXPECT_EQ(alignment, sizeof(intptr_t));
+
+    alignment = sizeof(intptr_t) + 1;
+   	Aligner::alignBlocks(&alignment);
+
+
+    EXPECT_EQ(alignment, sizeof(intptr_t)*2);
+}
+
+TEST(AlignmentTest, unaligned_blocks) {
+	std::size_t alignment = sizeof(intptr_t) - 1;
+	Aligner::alignBlocks(&alignment);
+    
+    EXPECT_EQ(alignment, sizeof(intptr_t));
 }
