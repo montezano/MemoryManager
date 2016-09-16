@@ -29,6 +29,7 @@ build/
 *.exe
 *.out
 *.app
+memoryTest
 
 # Project configuration
 .cproject
