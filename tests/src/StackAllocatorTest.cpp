@@ -29,9 +29,19 @@ TEST_F(StackAllocatorTest, alloc_successufully) {
     EXPECT_NO_THROW(memAlloc.alloc(sizeof(int)));
 }
 
+TEST_F(StackAllocatorTest, template_alloc_successufully) {
+    memAlloc.Allocator(sizeof(int));
+    EXPECT_NO_THROW(memAlloc.alloc<int>(0));
+}
+
 TEST_F(StackAllocatorTest, alloc_more_than_avaiable) {
     memAlloc.Allocator(sizeof(int));
     ASSERT_THROW(memAlloc.alloc(sizeof(int[10])), std::bad_alloc);
+}
+
+TEST_F(StackAllocatorTest, template_alloc_more_than_avaiable) {
+    memAlloc.Allocator(sizeof(int));
+    ASSERT_THROW(memAlloc.alloc<int>(10), std::bad_alloc);
 }
 
 TEST_F(StackAllocatorTest, alloc_object) {
