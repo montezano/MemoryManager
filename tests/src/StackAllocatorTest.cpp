@@ -49,9 +49,22 @@ TEST_F(StackAllocatorTest, alloc_object) {
     ASSERT_NO_THROW(memAlloc.alloc(sizeof(ObjectTest)));
 }
 
+TEST_F(StackAllocatorTest, template_alloc_object) {
+    memAlloc.Allocator(200000ul);
+    ASSERT_NO_THROW(memAlloc.alloc<ObjectTest>());
+}
+
 TEST_F(StackAllocatorTest, access_single_alloc_object) {
     memAlloc.Allocator(sizeof(ObjectTest));
     void* ptr = memAlloc.alloc(sizeof(ObjectTest));
+    ObjectTest* obj = new (ptr) ObjectTest();
+
+    ASSERT_EQ(obj->getNumber1(), 12);
+}
+
+TEST_F(StackAllocatorTest, template_access_single_alloc_object) {
+    memAlloc.Allocator(sizeof(ObjectTest));
+    void* ptr = memAlloc.alloc<ObjectTest>();
     ObjectTest* obj = new (ptr) ObjectTest();
 
     ASSERT_EQ(obj->getNumber1(), 12);
@@ -62,6 +75,13 @@ TEST_F(StackAllocatorTest, alloc_array_avaiable_mem) {
     memAlloc.Allocator(sizeof(int[50]));
 
     ASSERT_NO_THROW(memAlloc.alloc(sizeof(int[50])));
+}
+
+TEST_F(StackAllocatorTest, template_alloc_array_avaiable_mem) {
+
+    memAlloc.Allocator(sizeof(int[50]));
+
+    ASSERT_NO_THROW(memAlloc.alloc<int>(50));
 }
 
 TEST_F(StackAllocatorTest, alloc_array_unavaiable_mem) {
@@ -77,6 +97,24 @@ TEST_F(StackAllocatorTest, access_array_alloc_object) {
     memAlloc.Allocator(sizeof(int[50]));
 
     void* ptr = memAlloc.alloc(sizeof(int[50]));
+    int* array = new (ptr) int[50]();
+
+    for(int i = 0; i < 50; i++){
+        array[i] = i;
+    }
+
+    for(int i = 0; i < 50; i++){
+        // std::cout << i << std::endl;
+        ASSERT_EQ(array[i], i);
+    }
+}
+
+TEST_F(StackAllocatorTest, template_access_array_alloc_object) {
+
+
+    memAlloc.Allocator(sizeof(int[50]));
+
+    void* ptr = memAlloc.alloc<int>(50);
     int* array = new (ptr) int[50]();
 
     for(int i = 0; i < 50; i++){
