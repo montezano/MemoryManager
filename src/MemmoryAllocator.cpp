@@ -1,12 +1,19 @@
 #include "MemmoryAllocator.h"
+#include <iostream>
 
 MemmoryAllocator::MemmoryAllocator(){}
 
 MemmoryAllocator::~MemmoryAllocator(){}
 
+// void MemmoryAllocator::operator delete(void* ptr) {
+// 	ptr = nullptr;
+// }
+
 void* MemmoryAllocator::getStackBase() {return mStackBottom;}
 
 void* MemmoryAllocator::getStackTop() {return mStackTop;}
+
+void* MemmoryAllocator::getMarker() {return mMarker;}
 
 std::size_t MemmoryAllocator::getStackSize() {return mAllocMem;}
 

@@ -17,10 +17,11 @@ public:
 	        throw std::bad_alloc();
 	    }
 
+	    void* retPtr = mMarker;
 	    mMarker = PointerMath::addBytes(mMarker, size_bytes);
 	    mAllocMem = mAllocMem + size_bytes;
 
-	    T* ptr = static_cast<T*>(mMarker);
+	    T* ptr = static_cast<T*>(retPtr);
 	    return new (ptr) T[arraySize]();
 	};
 

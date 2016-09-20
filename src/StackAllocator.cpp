@@ -11,9 +11,10 @@ void* StackAllocator::alloc(std::size_t size_bytes) {
         throw std::bad_alloc();
     }
 
+    void* retPtr = mMarker;
     mMarker = PointerMath::addBytes(mMarker, size_bytes);
     mAllocMem = mAllocMem + size_bytes;
-    return mMarker;
+    return retPtr;
 }
 
 

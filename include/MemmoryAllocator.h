@@ -27,6 +27,7 @@ public:
 
     void* getStackBase();
     void* getStackTop();
+    void* getMarker();
     std::size_t getStackSize();
 
 protected:

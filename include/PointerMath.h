@@ -9,7 +9,8 @@
 
 class PointerMath{
 public:
-	static void* addBytes(void* ptr, std::size_t size_bytes);	
+	static void* addBytes(void* ptr, std::size_t size_bytes);
+	static uint64_t addressBytesDiff(void* ptrTop, void* ptrBottom);
 	
 };
 

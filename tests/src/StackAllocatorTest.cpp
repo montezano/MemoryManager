@@ -1,6 +1,7 @@
 #include "gtest.h"
 #include "StackAllocator.h"
 #include "ObjectTest.h"
+#include "PointerMath.h"
 
 
 class StackAllocatorTest : public ::testing::Test {
@@ -11,9 +12,9 @@ protected:
 	}
 
     virtual void TearDown() {
-        // delete(memAlloc);
     }
     StackAllocator memAlloc;
+    int* array;
 };
 
 TEST_F(StackAllocatorTest, allocator_valid_memmory_size) {
@@ -22,6 +23,11 @@ TEST_F(StackAllocatorTest, allocator_valid_memmory_size) {
 
 TEST_F(StackAllocatorTest, allocator_invalid_memmory_size) {
     ASSERT_THROW(memAlloc.Allocator(1000000000000ul), std::bad_alloc);
+}
+
+TEST_F(StackAllocatorTest, allocate_exact_size) {
+    memAlloc.Allocator(sizeof(int[10]));
+    ASSERT_EQ(sizeof(int[10]), PointerMath::addressBytesDiff(memAlloc.getStackTop(), memAlloc.getStackBase()));
 }
 
 TEST_F(StackAllocatorTest, alloc_successufully) {
@@ -90,20 +96,18 @@ TEST_F(StackAllocatorTest, alloc_array_unavaiable_mem) {
     ASSERT_THROW(memAlloc.alloc(sizeof(int[51])), std::bad_alloc);
 }
 
-TEST_F(StackAllocatorTest, access_array_alloc_object) {
+TEST_F(StackAllocatorTest, access_array_alloc) {
 
 
-    memAlloc.Allocator(sizeof(int[50]));
-
-    void* ptr = memAlloc.alloc(sizeof(int[50]));
-    int* array = new (ptr) int[50]();
+    memAlloc.Allocator(sizeof(int[51]));
+    
+    array = new (memAlloc.alloc(sizeof(int[50]))) int[50]();
 
     for(int i = 0; i < 50; i++){
         array[i] = i;
     }
 
     for(int i = 0; i < 50; i++){
-        // std::cout << i << std::endl;
         ASSERT_EQ(array[i], i);
     }
 }
@@ -113,7 +117,7 @@ TEST_F(StackAllocatorTest, template_access_array_alloc_object) {
 
     memAlloc.Allocator(sizeof(int[50]));
 
-    int* array = memAlloc.alloc<int>(50);
+    array = memAlloc.alloc<int>(50);
     // int* array = new (ptr) int[50]();
 
     for(int i = 0; i < 50; i++){
@@ -128,23 +132,25 @@ TEST_F(StackAllocatorTest, template_access_array_alloc_object) {
 
 TEST_F(StackAllocatorTest, access_array_alloc_object2) {
 
+    memAlloc.Allocator(sizeof(int[12]));
 
-    // memAlloc.Allocator<long int>(sizeof(long int[50]));
-    // void* ptr = memAlloc.alloc(50ul);
-    // long int* array = new (ptr) long int[50]();
-    // std::cout << "int size: " << sizeof(long int[50]) << std::endl;
+    array = memAlloc.alloc<int>(5);
 
-    // std::cout << memAlloc.getStackBase() << " " << memAlloc.getStackTop() << std::endl;
-    // std::cout << "size of memAlloc: " << sizeof(memAlloc) << std::endl;
-    // for(int i = 0; i < 50; i++){
-    //     // std::cout << i << std::endl;
-    //     array[i] = i;
-    // }
-    //     // std::cout << "END OF THE INITIALIZATION" << std::endl;
+    for(int i = 0; i < 5; i++){
+        array[i] = i;
+    }
 
-    // for(int i = 0; i < 50; i++){
-    //     // std::cout << i << std::endl;
-    //     ASSERT_EQ(array[i], i);
-    // }
-    
+    for(int i = 0; i < 5; i++){
+        ASSERT_EQ(array[i], i);
+    }
+
+    int* array2 = memAlloc.alloc<int>(5);
+
+    for(int i = 0; i < 5; i++){
+        array2[i] = i+5;
+    }
+
+    for(int i = 0; i < 5; i++){
+        ASSERT_EQ(array2[i], i+5);
+    }
 }
