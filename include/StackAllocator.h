@@ -10,7 +10,7 @@ public:
 
     void* alloc(std::size_t size_bytes);
 
-    template<typename T> T* alloc(uint16_t arraySize = 0){
+    template<typename T> T* alloc(uint16_t arraySize = 1){
 		std::size_t size_bytes = sizeof(T)*arraySize;
 		if(reinterpret_cast<intptr_t>(PointerMath::addBytes(mMarker, size_bytes))
 	    	 > reinterpret_cast<intptr_t>(mStackTop)) {
@@ -21,7 +21,7 @@ public:
 	    mAllocMem = mAllocMem + size_bytes;
 
 	    T* ptr = static_cast<T*>(mMarker);
-	    return new (ptr) T();
+	    return new (ptr) T[arraySize]();
 	};
 
 };

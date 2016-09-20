@@ -64,10 +64,9 @@ TEST_F(StackAllocatorTest, access_single_alloc_object) {
 
 TEST_F(StackAllocatorTest, template_access_single_alloc_object) {
     memAlloc.Allocator(sizeof(ObjectTest));
-    void* ptr = memAlloc.alloc<ObjectTest>();
-    ObjectTest* obj = new (ptr) ObjectTest();
+    ObjectTest* ptr = memAlloc.alloc<ObjectTest>();
 
-    ASSERT_EQ(obj->getNumber1(), 12);
+    ASSERT_EQ(ptr->getNumber1(), 12);
 }
 
 TEST_F(StackAllocatorTest, alloc_array_avaiable_mem) {
@@ -114,8 +113,8 @@ TEST_F(StackAllocatorTest, template_access_array_alloc_object) {
 
     memAlloc.Allocator(sizeof(int[50]));
 
-    void* ptr = memAlloc.alloc<int>(50);
-    int* array = new (ptr) int[50]();
+    int* array = memAlloc.alloc<int>(50);
+    // int* array = new (ptr) int[50]();
 
     for(int i = 0; i < 50; i++){
         array[i] = i;
