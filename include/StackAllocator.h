@@ -16,7 +16,7 @@ public:
     }
 
 public:
-	StackAllocator(){};
+	
     StackAllocator(StackAllocator const&) = delete;
     void operator=(StackAllocator const&) = delete;
 
@@ -37,7 +37,7 @@ public:
 	};
 
 private:
-    // StackAllocator* instance;
+	StackAllocator();
 
 };
 
