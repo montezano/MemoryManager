@@ -5,7 +5,7 @@
 #include <new>
 
 //project files
-#include "MemmoryAllocator.h"
+#include "MemoryAllocator.h"
 
 
 class ObjectTest {
@@ -15,7 +15,7 @@ public:
 
 	int getNumber1();
 
-	// void* operator new(std::size_t size_bytes, MemmoryAllocator& allocator);
+	// void* operator new(std::size_t size_bytes, MemoryAllocator& allocator);
 	// void operator delete(void* ptr);
 private:
 	int number1;

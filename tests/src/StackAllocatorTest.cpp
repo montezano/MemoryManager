@@ -12,8 +12,9 @@ protected:
 	}
 
     virtual void TearDown() {
+        StackAllocator::getInstance().cleanMemory();
     }
-    
+    // StackAllocator memAlloc;
     int* array;
 };
 
@@ -116,14 +117,17 @@ TEST_F(StackAllocatorTest, template_access_array_alloc_object) {
     StackAllocator::getInstance().Allocator(sizeof(int[50]));
 
     array = StackAllocator::getInstance().alloc<int>(50);
-    // int* array = new (ptr) int[50]();
 
     for(int i = 0; i < 50; i++){
         array[i] = i;
     }
 
     for(int i = 0; i < 50; i++){
-        // std::cout << i << std::endl;
         ASSERT_EQ(array[i], i);
     }
+}
+
+TEST_F(StackAllocatorTest, clean_memory) {
+    StackAllocator::getInstance().Allocator(sizeof(int[100]));
+    StackAllocator::getInstance().cleanMemory();
 }

@@ -1,5 +1,5 @@
-#ifndef __MEMMORYALLOCATOR__H__
-#define __MEMMORYALLOCATOR__H__
+#ifndef __MEMORYALLOCATOR__H__
+#define __MEMORYALLOCATOR__H__
 
 //Std includes
 #include <new>
@@ -12,18 +12,19 @@
 #include "Aligner.h"
 
 
-class MemmoryAllocator{
+class MemoryAllocator{
 public:
-    MemmoryAllocator();
-    ~MemmoryAllocator();
+    MemoryAllocator();
+    ~MemoryAllocator();
 
     // void* operator new(std::size_t size_bytes);
     // void operator delete(void* ptr);
     
     virtual void Allocator(std::size_t size_bytes);
-    
+    virtual void cleanMemory();
     
     virtual void* alloc(std::size_t size_bytes) = 0;
+    
 
     void* getStackBase();
     void* getStackTop();
