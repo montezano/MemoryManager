@@ -1,8 +1,14 @@
 #include "StackAllocator.h"
 
-StackAllocator::StackAllocator() {}
-
 StackAllocator::~StackAllocator() {}
+
+// StackAllocator& StackAllocator::getInstance(){
+// 	if(instance){
+// 		return instance;
+// 	}
+// 	instance = new StackAllocator();
+// 	return instance;
+// }
 
 void* StackAllocator::alloc(std::size_t size_bytes) {
 

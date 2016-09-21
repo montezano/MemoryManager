@@ -5,10 +5,21 @@
 
 class StackAllocator : public MemmoryAllocator {
 public:
-    StackAllocator();
+
     ~StackAllocator();
 
     void* alloc(std::size_t size_bytes);
+
+    static StackAllocator& getInstance(){
+    	static StackAllocator instance;
+    	return instance;
+    }
+
+public:
+	StackAllocator(){};
+    StackAllocator(StackAllocator const&) = delete;
+    void operator=(StackAllocator const&) = delete;
+
 
     template<typename T> T* alloc(uint16_t arraySize = 1){
 		std::size_t size_bytes = sizeof(T)*arraySize;
@@ -24,6 +35,9 @@ public:
 	    T* ptr = static_cast<T*>(retPtr);
 	    return new (ptr) T[arraySize]();
 	};
+
+private:
+    // StackAllocator* instance;
 
 };
 
