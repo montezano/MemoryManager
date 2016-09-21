@@ -130,4 +130,5 @@ TEST_F(StackAllocatorTest, template_access_array_alloc_object) {
 TEST_F(StackAllocatorTest, clean_memory) {
     StackAllocator::getInstance().Allocator(sizeof(int[100]));
     StackAllocator::getInstance().cleanMemory();
+    ASSERT_THROW( StackAllocator::getInstance().alloc<int>(), std::bad_alloc);
 }
