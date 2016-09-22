@@ -17,8 +17,6 @@ int ObjectTest::getNumber1() {
 }
 
 void* ObjectTest::operator new(size_t size_bytes) {
-	    std::cout << sizeof(ObjectTest) << " " << StackAllocator::getInstance().getStackSize() << std::endl;
-
 	return StackAllocator::getInstance().alloc<ObjectTest>();
 }
 

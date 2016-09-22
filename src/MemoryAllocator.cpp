@@ -19,8 +19,7 @@ void* MemoryAllocator::getMarker() {return mMarker;}
 std::size_t MemoryAllocator::getStackSize() {return mAllocMem;}
 
 void MemoryAllocator::Allocator(std::size_t size_bytes){
-	mAllocMem = size_bytes;
-	Aligner::alignBlocks(&mAllocMem);
+	Aligner::alignBlocks(mAllocMem);
 
 	mStackBottom = (void*)(::operator new(size_bytes));
     if(mStackBottom == nullptr){

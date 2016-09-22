@@ -15,7 +15,7 @@ StackAllocator& StackAllocator::getInstance() {
 }
 
 void* StackAllocator::alloc(std::size_t size_bytes) {
-
+    Aligner::alignBlocks(size_bytes);
     if(reinterpret_cast<intptr_t>(PointerMath::addBytes(mMarker, size_bytes))
     	 > reinterpret_cast<intptr_t>(mStackTop)) {
         throw std::bad_alloc();
@@ -26,6 +26,3 @@ void* StackAllocator::alloc(std::size_t size_bytes) {
     mAllocMem = mAllocMem + size_bytes;
     return retPtr;
 }
-
-
-

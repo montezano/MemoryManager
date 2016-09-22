@@ -63,14 +63,7 @@ TEST_F(StackAllocatorTest, template_alloc_object) {
 
 TEST_F(StackAllocatorTest, access_single_alloc_object) {
     StackAllocator::getInstance().Allocator(sizeof(ObjectTest));
-    std::cout << sizeof(ObjectTest) << " " << StackAllocator::getInstance().getStackSize() << std::endl;
-    void* ptr = StackAllocator::getInstance().alloc(sizeof(ObjectTest));
-        std::cout << sizeof(ObjectTest) << " " << StackAllocator::getInstance().getStackSize() << std::endl;
-
     ObjectTest* obj = new ObjectTest();
-
-    std::cout << sizeof(ObjectTest) << " " << StackAllocator::getInstance().getStackSize() << std::endl;
-
     ASSERT_EQ(obj->getNumber1(), 12);
 }
 
@@ -139,5 +132,7 @@ TEST_F(StackAllocatorTest, clean_memory) {
 }
 
 TEST_F(StackAllocatorTest, transparent_alloc) {
+    StackAllocator::getInstance().Allocator(sizeof(ObjectTest));
+
     ObjectTest* obj = new ObjectTest();
 }
