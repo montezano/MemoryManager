@@ -9,6 +9,8 @@ public:
     ~StackAllocator();
 
     void* alloc(std::size_t size_bytes);
+    void markReleasableMemory();
+    void releaseMemory();
 
     static StackAllocator& getInstance();
 
@@ -35,6 +37,7 @@ public:
 
 private:
 	StackAllocator();
+	void* mReleaseMarker;
 
 };
 

@@ -134,5 +134,18 @@ TEST_F(StackAllocatorTest, clean_memory) {
 TEST_F(StackAllocatorTest, transparent_alloc) {
     StackAllocator::getInstance().Allocator(sizeof(ObjectTest));
 
-    ObjectTest* obj = new ObjectTest();
+    ASSERT_NO_THROW(new ObjectTest());
+}
+
+TEST_F(StackAllocatorTest, release_memory) {
+    StackAllocator::getInstance().Allocator(sizeof(int[15]));
+    StackAllocator::getInstance().alloc<int>(10);
+    StackAllocator::getInstance().markReleasableMemory();
+    StackAllocator::getInstance().alloc<int>(5);
+    ASSERT_EQ(sizeof(int[15]), StackAllocator::getInstance().getStackSize());
+    ASSERT_THROW(StackAllocator::getInstance().alloc<int>(), std::bad_alloc);
+    StackAllocator::getInstance().releaseMemory();
+    ASSERT_EQ(sizeof(int[10]), StackAllocator::getInstance().getStackSize());
+    ASSERT_NO_THROW(StackAllocator::getInstance().alloc<int>());
+
 }

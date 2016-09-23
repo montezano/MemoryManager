@@ -4,6 +4,7 @@ StackAllocator::StackAllocator(){
 	mStackBottom = 0;
     mStackTop = 0;
     mMarker = 0;
+    mReleaseMarker = 0;
     mAllocMem = 0;
 }
 
@@ -25,4 +26,15 @@ void* StackAllocator::alloc(std::size_t size_bytes) {
     mMarker = PointerMath::addBytes(mMarker, size_bytes);
     mAllocMem = mAllocMem + size_bytes;
     return retPtr;
+}
+
+void StackAllocator::markReleasableMemory() {
+	mReleaseMarker = mMarker;
+
+}
+
+void StackAllocator::releaseMemory() {
+	mAllocMem = mAllocMem - PointerMath::addressBytesDiff(mMarker, mReleaseMarker);
+	Aligner::alignBlocks(mAllocMem);
+	mMarker = mReleaseMarker;
 }
