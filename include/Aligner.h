@@ -5,7 +5,7 @@
 
 class Aligner{
 public:
-	static void alignBlocks(std::size_t* size_bytes);
+	static void alignBlocks(std::size_t &size_bytes);
 	
 private:
 	const uint8_t mAlignment = sizeof(intptr_t);

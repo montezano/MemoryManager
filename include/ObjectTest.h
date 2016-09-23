@@ -5,18 +5,19 @@
 #include <new>
 
 //project files
-#include "MemmoryAllocator.h"
+#include "StackAllocator.h"
 
 
 class ObjectTest {
 public:
 	ObjectTest();
+	// ObjectTest(int testNUmber);
 	~ObjectTest();
 
 	int getNumber1();
 
-	// void* operator new(std::size_t size_bytes, MemmoryAllocator& allocator);
-	// void operator delete(void* ptr);
+	void* operator new(size_t size_bytes);
+	void operator delete(void* ptr);
 private:
 	int number1;
 };

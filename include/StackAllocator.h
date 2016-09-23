@@ -1,22 +1,21 @@
 #ifndef __STACKALLOCATOR__H__
 #define __STACKALLOCATOR__H__
 
-#include "MemmoryAllocator.h"
+#include "MemoryAllocator.h"
 
-class StackAllocator : public MemmoryAllocator {
+class StackAllocator : public MemoryAllocator {
 public:
 
     ~StackAllocator();
 
     void* alloc(std::size_t size_bytes);
+    void markReleasableMemory();
+    void releaseMemory();
 
-    static StackAllocator& getInstance(){
-    	static StackAllocator instance;
-    	return instance;
-    }
+    static StackAllocator& getInstance();
 
 public:
-	StackAllocator(){};
+	
     StackAllocator(StackAllocator const&) = delete;
     void operator=(StackAllocator const&) = delete;
 
@@ -37,7 +36,8 @@ public:
 	};
 
 private:
-    // StackAllocator* instance;
+	StackAllocator();
+	void* mReleaseMarker;
 
 };
 
