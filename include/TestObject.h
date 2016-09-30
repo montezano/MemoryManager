@@ -1,5 +1,5 @@
-#ifndef __OBJECTTEST_H__
-#define __OBJECTTEST_H__
+#ifndef __TESTOBJECT_H__
+#define __TESTOBJECT_H__
 
 //Std includes
 #include <new>
@@ -8,11 +8,11 @@
 #include "StackAllocator.h"
 
 
-class ObjectTest {
+class TestObject {
 public:
-	ObjectTest();
-	// ObjectTest(int testNUmber);
-	~ObjectTest();
+	TestObject();
+	// TestObject(int testNUmber);
+	~TestObject();
 
 	int getNumber1();
 
@@ -22,4 +22,4 @@ private:
 	int number1;
 };
 
-#endif //__OBJECTTEST_H__
+#endif //__TESTOBJECT_H__

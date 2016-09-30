@@ -14,8 +14,6 @@ public:
 
     static StackAllocator& getInstance();
 
-public:
-	
     StackAllocator(StackAllocator const&) = delete;
     void operator=(StackAllocator const&) = delete;
 

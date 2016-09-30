@@ -1,25 +1,25 @@
-#include "ObjectTest.h"
+#include "TestObject.h"
 
-ObjectTest::ObjectTest(){
+TestObject::TestObject(){
 	number1 = 12;
 }
 
-// ObjectTest::ObjectTest(int testNumber) {
+// TestObject::TestObject(int testNumber) {
 // 	number1 = testNumber;
 // }
 
-ObjectTest::~ObjectTest(){
+TestObject::~TestObject(){
 	
 }
 
-int ObjectTest::getNumber1() {
+int TestObject::getNumber1() {
 	return number1;
 }
 
-void* ObjectTest::operator new(size_t size_bytes) {
-	return StackAllocator::getInstance().alloc<ObjectTest>();
+void* TestObject::operator new(size_t size_bytes) {
+	return StackAllocator::getInstance().alloc<TestObject>();
 }
 
-void ObjectTest::operator delete(void* ptr){
-
+void TestObject::operator delete(void* ptr){
+	
 }
