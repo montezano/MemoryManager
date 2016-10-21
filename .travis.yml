@@ -1,0 +1,7 @@
+language: cpp
+compiler: gcc
+script:
+  - cd test
+  - make test
+  - cd ../benchmark
+  - make test
