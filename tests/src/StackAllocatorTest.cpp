@@ -1,6 +1,6 @@
 #include "gtest.h"
 #include "StackAllocator.h"
-#include "ObjectTest.h"
+#include "TestObject.h"
 #include "PointerMath.h"
 
 
@@ -53,23 +53,23 @@ TEST_F(StackAllocatorTest, template_alloc_more_than_avaiable) {
 
 TEST_F(StackAllocatorTest, alloc_object) {
     StackAllocator::getInstance().Allocator(200000ul);
-    ASSERT_NO_THROW(StackAllocator::getInstance().alloc(sizeof(ObjectTest)));
+    ASSERT_NO_THROW(StackAllocator::getInstance().alloc(sizeof(TestObject)));
 }
 
 TEST_F(StackAllocatorTest, template_alloc_object) {
     StackAllocator::getInstance().Allocator(200000ul);
-    ASSERT_NO_THROW(StackAllocator::getInstance().alloc<ObjectTest>());
+    ASSERT_NO_THROW(StackAllocator::getInstance().alloc<TestObject>());
 }
 
 TEST_F(StackAllocatorTest, access_single_alloc_object) {
-    StackAllocator::getInstance().Allocator(sizeof(ObjectTest));
-    ObjectTest* obj = new ObjectTest();
+    StackAllocator::getInstance().Allocator(sizeof(TestObject));
+    TestObject* obj = new TestObject();
     ASSERT_EQ(obj->getNumber1(), 12);
 }
 
 TEST_F(StackAllocatorTest, template_access_single_alloc_object) {
-    StackAllocator::getInstance().Allocator(sizeof(ObjectTest));
-    ObjectTest* ptr = StackAllocator::getInstance().alloc<ObjectTest>();
+    StackAllocator::getInstance().Allocator(sizeof(TestObject));
+    TestObject* ptr = StackAllocator::getInstance().alloc<TestObject>();
 
     ASSERT_EQ(ptr->getNumber1(), 12);
 }
@@ -132,9 +132,9 @@ TEST_F(StackAllocatorTest, clean_memory) {
 }
 
 TEST_F(StackAllocatorTest, transparent_alloc) {
-    StackAllocator::getInstance().Allocator(sizeof(ObjectTest));
+    StackAllocator::getInstance().Allocator(sizeof(TestObject));
 
-    ASSERT_NO_THROW(new ObjectTest());
+    ASSERT_NO_THROW(new TestObject());
 }
 
 TEST_F(StackAllocatorTest, release_memory) {
